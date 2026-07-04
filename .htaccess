@@ -1,0 +1,3 @@
+<Files .env>
+ deny from all
+</Files>
