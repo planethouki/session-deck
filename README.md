@@ -7,6 +7,25 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Docker Compose での起動
+
+Docker Desktop を起動した状態で、プロジェクトのルートから次を実行します。
+
+```bash
+docker compose up --build
+```
+
+初回起動時には `.env` の作成、Composer / npm 依存関係のインストール、
+アプリケーションキーの生成、データベースのマイグレーションが自動で行われます。
+
+- Laravel: http://localhost:8000
+- Vite: http://localhost:5173
+- MySQL: Compose 内部の `db:3306`（database: `laravel`, user: `laravel`, password: `secret`）
+
+バックグラウンドで起動する場合は `docker compose up --build -d`、停止は
+`docker compose down` を使います。DB のデータも削除する場合だけ
+`docker compose down -v` を実行してください。
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
