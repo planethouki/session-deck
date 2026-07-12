@@ -26,6 +26,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 15s
+    ports:
+        - "3306:3306"
 
   vite:
     image: node:24-alpine
