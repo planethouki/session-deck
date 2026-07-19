@@ -47,7 +47,7 @@ npm run build  # production build
 
 ## Architecture
 
-**Stack:** Laravel 11 (PHP 8.2) + Inertia.js v2 + React 19 + TypeScript + Tailwind CSS v4 + Vite 7.
+**Stack:** Laravel 12 (PHP 8.2) + Inertia.js v2 + React 19 + TypeScript + Tailwind CSS v4 + Vite 7.
 
 **Request flow:**
 1. Every HTTP request hits Laravel routing (`routes/web.php`).
