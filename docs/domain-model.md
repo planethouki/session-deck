@@ -18,7 +18,7 @@ erDiagram
     INSTRUMENT ||--o{ PART_SLOT : classifies
     PARTICIPATION ||--o{ PART_ENTRY : submits
     PART_SLOT ||--o{ PART_ENTRY : receives
-    PART_ENTRY ||--o| ASSIGNMENT : becomes
+    PART_ENTRY ||--o{ ASSIGNMENT : becomes
     SESSION_SONG ||--o{ SONG_RESOURCE : has
     SESSION ||--o{ ANNOUNCEMENT : publishes
 ```
@@ -184,6 +184,7 @@ applied / on_hold / selected
 11. 応募時はイベントが`published`、曲が公開中、パート枠が受付中、かつ応募期限内でなければならない。
 12. 参加定員は承認済みParticipationの人数とし、演奏参加者と見学者の両方を数える。owner・staffはParticipationを持つ場合だけ数える。
 13. 応募曲数と担当曲数は、PartEntryやAssignmentの行数ではなく、異なる課題曲の数で数える。
+14. 有効な応募の希望順位は、参加者ごとに1から始まる欠番のない連番とする。応募取消・見送り後は残った応募を自動的に詰め直す。
 
 ## MVPで確定した設計判断
 
