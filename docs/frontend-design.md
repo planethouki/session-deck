@@ -417,6 +417,8 @@ resources/js/
       Staff/Index.tsx
     Profile/
       Edit.tsx
+    Notifications/
+      Index.tsx
 ```
 
 ページ固有の小さな部品はページディレクトリ内に置き、2画面以上で使うものだけ`Components`へ昇格する。汎用化を先行させない。
