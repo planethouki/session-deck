@@ -206,7 +206,7 @@ type PublicEventSong = {
 };
 ```
 
-公開画面の`confirmed_count`は人数だけを返し、確定者名は返さない。`public_resources`には`visibility = public`の資料だけを含める。承認済み参加者用ページでは担当者名と閲覧可能な全資料を含む別の型を使用する。
+公開画面の`confirmed_count`は人数だけを返し、確定者名は返さない。`public_resources`には`visibility = public`で、親Eventが公開対象かつ親EventSongが公開中の資料だけを含める。承認済み参加者用ページでは、親Eventと曲も閲覧対象である場合に限り、担当者名と閲覧可能な全資料を含む別の型を使用する。
 
 ## 自分の参加・応募型
 
