@@ -109,7 +109,6 @@ type GenreOption = {
 type UserSummary = {
   id: number;
   name: string;
-  avatar_url: string | null;
 };
 
 type PaginationLink = {
@@ -175,10 +174,13 @@ type EventDetail = EventSummary & {
 type SongResourceView = {
   id: number;
   type: 'reference_audio' | 'sheet_music' | 'chord_chart' | 'other';
+  visibility: 'public' | 'participants';
   title: string;
   url: string;
   sort_order: number;
 };
+
+type PublicSongResource = Omit<SongResourceView, 'visibility'>;
 
 type PublicPartSlot = {
   id: number;
@@ -200,11 +202,11 @@ type PublicEventSong = {
   status: SongStatus;
   setlist_order: number | null;
   slots: PublicPartSlot[];
-  resources: SongResourceView[];
+  public_resources: PublicSongResource[];
 };
 ```
 
-公開画面の`confirmed_count`は人数だけを返し、確定者名は返さない。承認済み参加者用ページでは担当者名を含む別の型を使用する。
+公開画面の`confirmed_count`は人数だけを返し、確定者名は返さない。`public_resources`には`visibility = public`の資料だけを含める。承認済み参加者用ページでは担当者名と閲覧可能な全資料を含む別の型を使用する。
 
 ## 自分の参加・応募型
 
@@ -316,8 +318,9 @@ type EntrySlot = PublicPartSlot & {
   actions: { apply: ActionUrl };
 };
 
-type EntrySong = Omit<PublicEventSong, 'slots'> & {
+type EntrySong = Omit<PublicEventSong, 'slots' | 'public_resources'> & {
   slots: EntrySlot[];
+  resources: SongResourceView[];
 };
 
 type EntriesIndexProps = {
@@ -370,7 +373,8 @@ type ParticipantSongMember = {
   instrument: InstrumentOption;
 };
 
-type ParticipantEventSong = PublicEventSong & {
+type ParticipantEventSong = Omit<PublicEventSong, 'public_resources'> & {
+  resources: SongResourceView[];
   assigned_members: ParticipantSongMember[];
 };
 
@@ -388,7 +392,7 @@ type MyEventShowProps = {
 };
 ```
 
-担当者名は、承認済みかつ未キャンセルの参加者にだけ公開する。
+担当者名と参加者限定資料は、承認済みかつ未キャンセルの参加者にだけ公開する。その他の状態では`songs`を空配列とし、公開イベント情報だけを別途表示する。
 
 ### Profile/Edit
 
@@ -399,7 +403,6 @@ type ProfileEditProps = {
     bio: string | null;
     region: string | null;
     experience_level: string | null;
-    avatar_url: string | null;
     instruments: Array<{
       instrument_id: number;
       experience_years: number | null;
@@ -657,6 +660,8 @@ type ManageLineupShowProps = ManagedPageProps & {
 
 ### Manage/Events/Setlist/Edit
 
+`GET /manage/events/{event:slug}/setlist`（`manage.events.setlist.edit`）で表示する。
+
 ```ts
 type SetlistSong = {
   id: number;
@@ -869,6 +874,7 @@ type StorePartSlotPayload = {
 ```ts
 type StoreSongResourcePayload = {
   type: SongResourceView['type'];
+  visibility: SongResourceView['visibility'];
   title: string;
   url: string;
   sort_order: number;

@@ -27,7 +27,7 @@ erDiagram
 
 ### User / Profile
 
-Userは認証単位。Profileは自己紹介、活動地域、経験レベル、アイコンなど音楽活動に関する公開情報を持つ。
+Userは認証単位。Profileは自己紹介、活動地域、経験レベルなど音楽活動に関する公開情報を持つ。プロフィール画像はMVP対象外とし、将来拡張とする。
 
 ### Instrument / ProfileInstrument
 
@@ -108,7 +108,7 @@ Userは認証単位。Profileは自己紹介、活動地域、経験レベル、
 
 ### SongResource
 
-曲に紐づく参考音源、譜面、コード譜などの資料。MVPではファイルアップロードよりURL共有を優先する。
+曲に紐づく参考音源、譜面、コード譜などの資料。MVPではファイルアップロードよりURL共有を優先する。資料ごとに`public`（一般公開）または`participants`（承認済み参加者と運営者のみ）の公開範囲を持つ。初期値は`participants`とする。
 
 ### Announcement
 
